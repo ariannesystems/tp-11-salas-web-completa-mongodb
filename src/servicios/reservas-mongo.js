@@ -124,17 +124,18 @@ function crearServicioReservasMongo() {
     const salto = (pagina - 1) * limite;
     const total = await Reserva.countDocuments(filtro);
     const documentos = await Reserva.find(filtro)
-                                    .select("estudiante email sala fecha turno personas estado")
-                                    .sort(ordenMongo)
-                                    .skip(salto)
-                                    .limit(limite)
-                                    .lean();
+      .select("estudiante email sala fecha turno personas estado")
+      .sort(ordenMongo)
+      .skip(salto)
+      .limit(limite)
+      .lean();
     //const documentos = await Reserva.find(filtro).sort(ordenMongo).lean();
-    return { datos: documentos.map(representarReserva),
-             pagina,
-             limite,
-             total,
-             paginas: Math.ceil(total/limite),
+    return {
+      datos: documentos.map(representarReserva),
+      pagina,
+      limite,
+      total,
+      paginas: Math.ceil(total / limite),
     };
   }
 
